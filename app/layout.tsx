@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Syne } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/data/site";
 import Providers from "@/components/layout/Providers";
@@ -10,9 +10,11 @@ import Curtain from "@/components/layout/Curtain";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-const syne = Syne({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-syne", display: "swap" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-mono-jb", display: "swap" });
+// Fonts are self-hosted from app/fonts (variable woff2, SIL Open Font License),
+// so builds never depend on fetching Google Fonts.
+const syne = localFont({ src: "./fonts/syne.woff2", weight: "400 800", variable: "--font-syne", display: "swap" });
+const inter = localFont({ src: "./fonts/inter.woff2", weight: "100 900", variable: "--font-inter", display: "swap" });
+const mono = localFont({ src: "./fonts/jetbrains-mono.woff2", weight: "100 800", variable: "--font-mono-jb", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
