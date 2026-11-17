@@ -51,7 +51,7 @@ export default function BeforeAfter({
   return (
     <div
       ref={box}
-      className={`relative w-full touch-pan-y select-none overflow-hidden bg-ink-3 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-4 has-[input:focus-visible]:outline-accent ${className}`}
+      className={`theme-ink relative w-full touch-pan-y select-none overflow-hidden bg-ink-3 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-4 has-[input:focus-visible]:outline-accent ${className}`}
       style={{ aspectRatio: ratioCss(ratio) }}
       data-cursor="drag"
       onPointerDown={(e) => {

@@ -64,7 +64,7 @@ export default function VideoModalProvider({ children }: { children: React.React
             role="dialog"
             aria-modal="true"
             aria-label={`Video player: ${item.title}`}
-            className="fixed inset-0 z-[80] flex flex-col items-center justify-center bg-ink/95 px-3 backdrop-blur-sm"
+            className="theme-ink fixed inset-0 z-[80] flex flex-col items-center justify-center bg-ink/95 px-3 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.35, delay: 0.15 } }}
@@ -102,7 +102,7 @@ export default function VideoModalProvider({ children }: { children: React.React
             </motion.div>
 
             <div className="mt-4 flex w-full max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center">
-              <span className="font-display text-lg font-bold uppercase">{item.title}</span>
+              <span className="font-display text-2xl">{item.title}</span>
               {item.meta && <span className="label-mono text-mute">{item.meta}</span>}
               {item.href && (
                 <TransitionLink href={item.href} onClick={close} className="label-mono text-accent underline-offset-4 hover:underline">

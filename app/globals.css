@@ -1,19 +1,82 @@
 @import "tailwindcss";
 
-/* ───────────────────────── Design tokens ───────────────────────── */
-@theme {
-  --color-ink: #0a0a0a;
-  --color-ink-2: #111111;
-  --color-ink-3: #1a1a1a;
-  --color-bone: #ede9e3;
-  --color-mute: #8b8b86;
-  --color-line: rgb(237 233 227 / 0.12);
-  --color-accent: #ff2d2d; /* electric red: the ONE accent */
-  --color-accent-dim: #c81e1e;
+/* ───────────────────────── Theme system ─────────────────────────
+   Each home-page section declares data-theme="ink | paper | red | room".
+   ThemeSwitcher puts the matching class on <html>, and the registered
+   custom properties below cross-fade, so the whole page shifts colour
+   as you scroll. Elements that must stay dark (video, lightbox) use .theme-ink locally.
+   Edit the palette here. */
+@property --bg { syntax: "<color>"; inherits: true; initial-value: #0b0b0b; }
+@property --fg { syntax: "<color>"; inherits: true; initial-value: #f1ebe1; }
+@property --accent { syntax: "<color>"; inherits: true; initial-value: #ff3d1f; }
+@property --on-accent { syntax: "<color>"; inherits: true; initial-value: #0b0b0b; }
 
-  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono-jb), ui-monospace, monospace;
+:root,
+.theme-ink {
+  --bg: #0b0b0b;
+  --fg: #f1ebe1;
+  --accent: #ff3d1f; /* signal red */
+  --on-accent: #0b0b0b;
+}
+.theme-paper {
+  --bg: #efe8dc; /* warm paper */
+  --fg: #111010;
+  --accent: #e8320f;
+  --on-accent: #f6f1e8;
+}
+.theme-red {
+  --bg: #ff3d1f;
+  --fg: #0b0b0b;
+  --accent: #0b0b0b; /* on red, the accent flips to ink */
+  --on-accent: #ff3d1f;
+}
+.theme-room {
+  --bg: #1d0907; /* darkroom safelight */
+  --fg: #f7dccf;
+  --accent: #ff4a26;
+  --on-accent: #1d0907;
+}
+/* derived tones: recomputed wherever a theme is applied */
+:root,
+.theme-ink,
+.theme-paper,
+.theme-red,
+.theme-room {
+  --muted: color-mix(in srgb, var(--fg) 58%, var(--bg));
+  --line: color-mix(in srgb, var(--fg) 16%, transparent);
+  --surface: color-mix(in srgb, var(--fg) 5%, var(--bg));
+  --surface-2: color-mix(in srgb, var(--fg) 10%, var(--bg));
+  color: var(--fg);
+}
+/* red is bright: muted text needs to stay darker to keep contrast */
+.theme-red { --muted: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
+html {
+  transition: --bg 0.9s var(--ease-cine), --fg 0.9s var(--ease-cine), --accent 0.9s var(--ease-cine),
+    --on-accent 0.9s var(--ease-cine);
+}
+
+/* `inline` makes utilities read the live variables, so local .theme-* classes work */
+@theme inline {
+  /* semantic colours (class names kept short): ink = background, bone = foreground */
+  --color-ink: var(--bg);
+  --color-ink-2: var(--surface);
+  --color-ink-3: var(--surface-2);
+  --color-bone: var(--fg);
+  --color-mute: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  /* fixed colours */
+  --color-black: #050505;
+  --color-signal: #ff3d1f;
+  --color-paper: #efe8dc;
+}
+
+@theme {
+  --font-display: var(--font-anton), "Impact", "Arial Narrow", sans-serif;
+  --font-serif: var(--font-instrument), "Times New Roman", serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   --ease-cine: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -39,25 +102,40 @@
 /* ───────────────────────── Base ───────────────────────── */
 html {
   overflow-x: clip;
-  background: var(--color-ink);
+  background: var(--bg);
   color-scheme: dark;
   -webkit-text-size-adjust: 100%;
+  font-synthesis: none; /* Anton has one weight: never fake-bold it */
 }
 body {
-  background: var(--color-ink);
-  color: var(--color-bone);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
 }
-::selection { background: var(--color-accent); color: var(--color-ink); }
+::selection { background: var(--accent); color: var(--on-accent); }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+@layer base {
+/* Display type: condensed poster caps */
+.font-display { letter-spacing: -0.005em; text-transform: uppercase; font-weight: 400; }
+/* Editorial serif accent, used inside headings */
+.font-serif { text-transform: none; letter-spacing: -0.02em; font-weight: 400; }
+em.accent-serif, .accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.02em;
+}
 }
 
 /* Lenis */
@@ -83,7 +161,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 @utility text-outline {
   color: transparent;
-  -webkit-text-stroke: 1px var(--color-bone);
+  -webkit-text-stroke: 1.5px var(--fg);
 }
 @utility label-mono {
   font-family: var(--font-mono);

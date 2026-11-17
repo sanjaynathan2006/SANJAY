@@ -22,7 +22,7 @@ function PosterPlayer({ p }: { p: Project }) {
   const r = ratioNumber(p.aspectRatio);
   return (
     <div
-      className="relative mx-auto overflow-hidden bg-black"
+      className="theme-ink relative mx-auto overflow-hidden rounded-sm bg-black"
       style={{ aspectRatio: ratioCss(p.aspectRatio), width: r < 1 ? `min(100%, calc(80svh * ${r}))` : r === 1 ? "min(100%, 80svh)" : "100%" }}
     >
       {playing ? (
@@ -67,7 +67,7 @@ export default function ProjectView({ project: p, next, index }: { project: Proj
         </motion.div>
 
         <p className="label-mono mt-12 text-accent">{p.category}</p>
-        <Reveal as="h1" text={p.title.toUpperCase()} by="word" onLoad delay={0.1} className="mt-4 max-w-[16ch] break-words font-display text-[clamp(1.6rem,8vw,8.5rem)] font-extrabold leading-[0.88] tracking-tight" />
+        <Reveal as="h1" text={p.title.toUpperCase()} by="word" onLoad delay={0.1} className="mt-4 max-w-[14ch] break-words font-display text-[clamp(3.4rem,13vw,13rem)] leading-[0.84]" />
       </div>
 
       <FadeIn className="container-x mt-12 md:mt-16" delay={0.2}>
@@ -85,7 +85,7 @@ export default function ProjectView({ project: p, next, index }: { project: Proj
         </dl>
         <FadeIn className="md:col-span-7 md:col-start-6">
           <p className="label-mono text-mute">About the project</p>
-          <p className="mt-4 font-display text-2xl font-semibold leading-snug md:text-4xl">{p.description}</p>
+          <p className="mt-4 font-serif text-3xl leading-[1.15] md:text-5xl">{p.description}</p>
         </FadeIn>
       </div>
 
@@ -97,15 +97,15 @@ export default function ProjectView({ project: p, next, index }: { project: Proj
       )}
 
       {/* Next project */}
-      <TransitionLink href={`/work/${next.slug}`} data-cursor="view" className="group mt-28 block border-y border-line md:mt-40">
+      <TransitionLink href={`/work/${next.slug}`} data-cursor="view" className="theme-red group mt-28 block bg-ink md:mt-40">
         <div className="container-x flex flex-col gap-4 py-14 md:flex-row md:items-end md:justify-between md:py-20">
           <div>
-            <p className="label-mono text-mute">Next project →</p>
-            <p className="mt-3 font-display text-[clamp(2.5rem,8vw,7.5rem)] font-extrabold uppercase leading-[0.9] tracking-tight transition-colors duration-500 group-hover:text-accent">
+            <p className="label-mono text-bone">Next project →</p>
+            <p className="mt-3 font-display text-[clamp(3.5rem,12vw,12rem)] leading-[0.85] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:translate-x-4">
               {next.title}
             </p>
           </div>
-          <p className="label-mono text-mute">
+          <p className="label-mono text-bone">
             {next.category} · {next.duration}
           </p>
         </div>

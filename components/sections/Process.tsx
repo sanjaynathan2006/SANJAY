@@ -44,12 +44,12 @@ export default function Process() {
   // Wrapper div keeps React's DOM intact when GSAP inserts its pin-spacer
   return (
     <div>
-    <section ref={section} id="process" className="relative overflow-hidden border-t border-line bg-ink py-28 lg:flex lg:h-screen lg:flex-col lg:justify-center lg:py-0" aria-labelledby="process-title">
+    <section ref={section} id="process" data-theme="room" className="relative overflow-hidden py-28 lg:flex lg:h-screen lg:flex-col lg:justify-center lg:py-0" aria-labelledby="process-title">
       <div className="container-x">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <SectionLabel index="05">Process</SectionLabel>
-            <Reveal as="h2" text="THE CUT" by="char" className="mt-6 font-display text-[clamp(2.1rem,9vw,8rem)] font-extrabold leading-[0.85] tracking-tight" />
+            <Reveal as="h2" text="THE *cut*" by="char" className="mt-6 font-display text-[clamp(4rem,12vw,11rem)] leading-[0.82]" />
           </div>
           <p className="max-w-sm shrink-0 text-bone/70">Five passes on the timeline, from first conversation to final export.</p>
         </div>
@@ -66,8 +66,8 @@ export default function Process() {
         <div ref={track} className="container-x lg:w-max lg:max-w-none lg:pl-[32vw] lg:pr-[10vw]">
           {/* ruler (desktop) */}
           <div className="relative mb-3 hidden h-6 border-b border-line lg:block" aria-hidden="true">
-            <div className="absolute inset-0 bg-[repeating-linear-gradient(to_right,rgb(237_233_227/0.25)_0_1px,transparent_1px_24px)] [mask-image:linear-gradient(to_top,black_40%,transparent_40%)]" />
-            <div className="absolute inset-0 bg-[repeating-linear-gradient(to_right,rgb(237_233_227/0.5)_0_1px,transparent_1px_120px)]" />
+            <div className="absolute inset-0 bg-[repeating-linear-gradient(to_right,color-mix(in_srgb,var(--fg)_30%,transparent)_0_1px,transparent_1px_24px)] [mask-image:linear-gradient(to_top,black_40%,transparent_40%)]" />
+            <div className="absolute inset-0 bg-[repeating-linear-gradient(to_right,color-mix(in_srgb,var(--fg)_60%,transparent)_0_1px,transparent_1px_120px)]" />
           </div>
 
           <ol className="relative flex flex-col gap-4 border-l border-line pl-6 lg:flex-row lg:gap-3 lg:border-l-0 lg:pl-0">
@@ -91,10 +91,10 @@ export default function Process() {
                     {/* decorative number drawn with CSS content (ignored by screen readers & contrast checks) */}
                     <span
                       data-n={String(i + 1).padStart(2, "0")}
-                      className="block font-display text-6xl font-extrabold leading-none text-bone/10 before:content-[attr(data-n)] md:text-8xl"
+                      className="block font-display text-7xl leading-none text-bone/15 before:content-[attr(data-n)] md:text-9xl"
                       aria-hidden="true"
                     />
-                    <h3 className="mt-2 font-display text-3xl font-bold uppercase tracking-tight md:text-5xl">{s.title}</h3>
+                    <h3 className="mt-3 font-display text-5xl leading-none md:text-7xl">{s.title}</h3>
                     <p className="mt-4 max-w-md text-bone/70">{s.detail}</p>
                   </div>
                   {/* audio clip */}

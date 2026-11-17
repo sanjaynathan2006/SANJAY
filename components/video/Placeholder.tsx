@@ -22,7 +22,7 @@ export default function Placeholder({
   const hue = (seed * 47) % 360;
   return (
     <div
-      className={`absolute inset-0 overflow-hidden ${className}`}
+      className={`theme-ink absolute inset-0 overflow-hidden ${className}`}
       style={{
         background: `radial-gradient(120% 90% at ${20 + ((seed * 13) % 60)}% 0%, hsl(${hue} 10% 22%) 0%, transparent 60%), linear-gradient(160deg, hsl(${hue} 4% 16%) 0%, hsl(${hue} 3% 9%) 55%, #0b0b0b 100%)`,
       }}
@@ -49,7 +49,7 @@ export default function Placeholder({
         <div className={`h-full bg-accent ${active ? "w-full transition-[width] duration-[4000ms] ease-linear" : "w-0"}`} />
       </div>
       <div
-        className={`absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgb(255_45_45/0.12),transparent_60%)] transition-opacity duration-500 ${
+        className={`absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgb(255_61_31/0.16),transparent_60%)] transition-opacity duration-500 ${
           active ? "opacity-100" : "opacity-0"
         }`}
         aria-hidden="true"

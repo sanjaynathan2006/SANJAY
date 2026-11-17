@@ -8,6 +8,8 @@ import { useVideoModal } from "@/components/video/VideoModal";
 import Timecode from "@/components/ui/Timecode";
 import FrameMarkers from "@/components/ui/FrameMarkers";
 import Magnetic from "@/components/ui/Magnetic";
+import ReelBadge from "@/components/ui/ReelBadge";
+import { Emph } from "@/lib/emphasis";
 import { gsap } from "@/lib/gsap";
 import { useInView } from "@/lib/hooks";
 
@@ -46,12 +48,12 @@ function HeroBackground() {
         // Animated placeholder until a hero loop is added in data/site.ts
         <div className="absolute inset-0 overflow-hidden bg-ink-2" aria-hidden="true">
           <motion.div
-            className="absolute -left-1/4 top-0 h-[120%] w-[80%] rounded-full bg-[radial-gradient(circle,rgb(255_45_45/0.22),transparent_65%)] blur-3xl"
+            className="absolute -left-1/4 top-0 h-[120%] w-[80%] rounded-full bg-[radial-gradient(circle,rgb(255_61_31/0.38),transparent_65%)] blur-3xl"
             animate={{ x: ["0%", "35%", "0%"], y: ["0%", "10%", "0%"] }}
             transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute -right-1/4 bottom-[-20%] h-[100%] w-[70%] rounded-full bg-[radial-gradient(circle,rgb(237_233_227/0.10),transparent_65%)] blur-3xl"
+            className="absolute -right-1/4 bottom-[-20%] h-[100%] w-[70%] rounded-full bg-[radial-gradient(circle,rgb(120_20_10/0.55),transparent_65%)] blur-3xl"
             animate={{ x: ["0%", "-30%", "0%"] }}
             transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -61,14 +63,14 @@ function HeroBackground() {
           </div>
         </div>
       )}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgb(10_10_10/0.85)_100%)]" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgb(11_11_11/0.8)_100%)]" aria-hidden="true" />
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink to-transparent" aria-hidden="true" />
     </div>
   );
 }
 
 export default function Hero() {
-  const { ready, scrollTo } = useApp();
+  const { ready } = useApp();
   const { open } = useVideoModal();
   const root = useRef<HTMLElement>(null);
   const bg = useRef<HTMLDivElement>(null);
@@ -92,7 +94,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={root} id="top" className="relative h-[100svh] min-h-[600px] overflow-hidden" aria-label="Intro">
+    <section ref={root} id="top" data-theme="ink" className="theme-ink relative h-[100svh] min-h-[600px] overflow-hidden bg-ink" aria-label="Intro">
       <div ref={bg} className="absolute inset-0 will-change-transform">
         <HeroBackground />
       </div>
@@ -128,67 +130,57 @@ export default function Hero() {
 
       <div className="relative z-20 flex h-full flex-col justify-end pb-[calc(4.5vh+1.5rem)] md:pb-[calc(4.5vh+2.5rem)]">
         <div className="container-x" data-hero-fade>
-          <div className="mb-6 flex flex-col gap-6 md:mb-8 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-xl overflow-hidden">
+          <div className="mb-5 flex items-end justify-between gap-6 md:mb-8">
+            <div className="max-w-3xl">
+              <div className="overflow-hidden">
+                <motion.p
+                  className="label-mono mb-4 text-accent"
+                  initial={{ y: "100%" }}
+                  animate={ready ? { y: 0 } : {}}
+                  transition={{ duration: 0.9, delay: 0.7, ease }}
+                >
+                  ● {site.role}
+                </motion.p>
+              </div>
               <motion.p
-                className="label-mono mb-3 text-accent"
-                initial={{ y: "100%", opacity: 0 }}
-                animate={ready ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.9, delay: 0.7, ease }}
-              >
-                {site.role}
-              </motion.p>
-              <motion.p
-                className="font-display text-2xl font-semibold leading-tight text-bone md:text-4xl"
+                className="font-display text-[clamp(2.4rem,6.2vw,6rem)] leading-[0.92] text-bone [&_em]:text-accent"
                 // no opacity fade: the preloader already hides it, and painting it early keeps LCP fast
                 initial={{ y: 30 }}
                 animate={ready ? { y: 0 } : {}}
                 transition={{ duration: 1, delay: 0.8, ease }}
               >
-                {site.tagline}
+                <Emph text={site.tagline} />
               </motion.p>
             </div>
             <motion.div
-              className="pointer-events-auto flex items-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={ready ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1, delay: 1, ease }}
+              className="pointer-events-auto"
+              initial={{ scale: 0, rotate: -90 }}
+              animate={ready ? { scale: 1, rotate: 0 } : {}}
+              transition={{ duration: 1.2, delay: 1, ease }}
             >
-              <Magnetic>
-                <button
-                  data-cursor="play"
-                  onClick={() => open({ ...site.showreel.full, poster: site.showreel.poster, title: `${site.name}: Showreel`, ratio: "16:9" })}
-                  className="group flex items-center gap-4 rounded-full bg-bone py-2 pl-2 pr-6 text-ink transition-colors hover:bg-accent"
-                >
-                  <span className="flex size-11 items-center justify-center rounded-full bg-ink text-bone transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
-                    ▶
-                  </span>
-                  <span className="label-mono font-semibold">Watch Showreel</span>
-                </button>
+              <Magnetic strength={0.25}>
+                <ReelBadge onClick={() => open({ ...site.showreel.full, poster: site.showreel.poster, title: `${site.name}: Showreel`, ratio: "16:9" })} />
               </Magnetic>
-              <button onClick={() => scrollTo("#work")} className="label-mono hidden text-bone/70 transition-colors hover:text-bone sm:block">
-                Scroll ↓
-              </button>
             </motion.div>
           </div>
         </div>
 
         <h1
           ref={word}
-          className="flex w-full flex-col items-center justify-center px-[2vw] font-display text-[12.6vw] font-extrabold leading-[0.95] tracking-[-0.03em] md:flex-row md:text-[6.8vw]"
+          className="flex w-full items-end justify-center px-[1.5vw] font-display text-[17.1vw] leading-[0.8]"
           aria-label={`${site.name}, ${site.role}`}
         >
-          {/* two halves: side by side on desktop, stacked on phones */}
+          {/* rendered in two halves (kept on one line) so letters stagger in from the centre */}
           {[site.name.slice(0, Math.ceil(site.name.length / 2)), site.name.slice(Math.ceil(site.name.length / 2))].map((part, pi) => (
             <span key={pi} className="flex whitespace-nowrap" aria-hidden="true">
               {part.split("").map((ch, ci) => {
                 const i = pi * Math.ceil(site.name.length / 2) + ci;
                 return (
-                  <span key={i} className="inline-block pt-[0.04em] pb-[0.02em] [clip-path:inset(-60%_-30%_0_-30%)]">
+                  <span key={i} className="inline-block pt-[0.06em] [clip-path:inset(-60%_-30%_0_-30%)]">
                     <motion.span
                       data-letter
                       className="inline-block will-change-transform"
-                      initial={{ y: "105%" }}
+                      initial={{ y: "110%" }}
                       animate={ready ? { y: "0%" } : {}}
                       transition={{ duration: 1.1, delay: 0.15 + i * 0.045, ease }}
                     >

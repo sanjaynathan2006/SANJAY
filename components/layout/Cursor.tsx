@@ -6,7 +6,10 @@ import { useFinePointer, useReducedMotion } from "@/lib/hooks";
 
 type Mode = "default" | "link" | "play" | "view" | "drag";
 
-/** Custom cursor: a dot that grows into "PLAY" on videos, "VIEW"/"DRAG" where marked with data-cursor. */
+/**
+ * Custom cursor. The small dot / ring uses `difference` blending so it stays visible
+ * on every section colour; on videos it becomes a solid "PLAY" disc.
+ */
 export default function Cursor() {
   const fine = useFinePointer();
   const reduce = useReducedMotion();
@@ -44,26 +47,24 @@ export default function Cursor() {
   if (!fine) return null;
 
   const big = mode === "play" || mode === "view" || mode === "drag";
-  const size = big ? 96 : mode === "link" ? 44 : 12;
-  const label = mode === "play" ? "PLAY ▶" : mode === "view" ? "VIEW" : mode === "drag" ? "◀ DRAG ▶" : "";
+  const size = big ? 104 : mode === "link" ? 56 : 14;
+  const label = mode === "play" ? "PLAY ▶" : mode === "view" ? "VIEW ↗" : mode === "drag" ? "◀ DRAG ▶" : "";
 
   return (
     <motion.div
       aria-hidden="true"
       className="pointer-events-none fixed left-0 top-0 z-[110] flex items-center justify-center rounded-full"
-      style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%" }}
+      style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%", mixBlendMode: big ? "normal" : "difference" }}
       animate={{
         width: size,
         height: size,
         opacity: visible ? 1 : 0,
-        backgroundColor: big ? "rgb(255 45 45 / 1)" : mode === "link" ? "rgb(237 233 227 / 0)" : "rgb(237 233 227 / 1)",
-        borderColor: mode === "link" ? "rgb(237 233 227 / 0.9)" : "rgb(237 233 227 / 0)",
+        backgroundColor: big ? "#ff3d1f" : "#ffffff",
       }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
     >
-      <span className="absolute inset-0 rounded-full border" style={{ borderColor: "inherit" }} />
       <motion.span
-        className="font-mono text-[11px] font-semibold tracking-[0.12em] text-ink"
+        className="font-mono text-[11px] font-semibold tracking-[0.12em] text-[#0b0b0b]"
         animate={{ opacity: big ? 1 : 0, scale: big ? 1 : 0.5 }}
       >
         {label}

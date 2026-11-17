@@ -9,14 +9,14 @@ export default function Footer() {
   const { scrollTo } = useApp();
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden border-t border-line pt-10">
+    <footer data-theme="ink" className="relative overflow-hidden pt-16">
       <Marquee duration={28} className="py-4 md:py-8">
         {Array.from({ length: 3 }).map((_, i) => (
-          <span key={i} className="flex shrink-0 items-center whitespace-nowrap pr-[0.4em] font-display text-[clamp(4rem,14vw,13rem)] font-extrabold uppercase leading-none tracking-tight">
+          <span key={i} className="flex shrink-0 items-center whitespace-nowrap pr-[0.3em] font-display text-[clamp(5rem,20vw,20rem)] leading-[0.9]">
             {site.name}
-            <span className="mx-[0.25em] text-accent">—</span>
-            <span className="text-outline">Video Editor</span>
-            <span className="mx-[0.25em] text-accent">—</span>
+            <span className="mx-[0.2em] text-accent">—</span>
+            <em className="accent-serif text-accent">video editor</em>
+            <span className="mx-[0.2em] text-accent">—</span>
           </span>
         ))}
       </Marquee>

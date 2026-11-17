@@ -42,7 +42,7 @@ export default function WorkCard({ project, priority = false }: { project: Proje
           setHover(false);
           setPlaying(false);
         }}
-        className="relative block w-full overflow-hidden bg-ink-3 text-left"
+        className="theme-ink relative block w-full overflow-hidden rounded-sm bg-black text-left"
         style={{ aspectRatio: ratioCss(p.aspectRatio) }}
         aria-label={`Play ${p.title} (${p.category}, ${p.duration})`}
       >
@@ -86,7 +86,7 @@ export default function WorkCard({ project, priority = false }: { project: Proje
         </span>
         <span className="absolute bottom-3 right-3 font-mono text-[11px] tabular-nums text-bone/80">{durationToTC(p.duration)}</span>
         <span
-          className="absolute bottom-3 left-3 flex size-10 items-center justify-center rounded-full bg-bone text-xs text-ink transition-transform duration-500 group-hover:scale-110 md:scale-0"
+          className="absolute bottom-3 left-3 flex size-11 items-center justify-center rounded-full bg-accent text-xs text-on-accent transition-transform duration-500 group-hover:scale-110 md:scale-0"
           aria-hidden="true"
         >
           ▶
@@ -95,8 +95,8 @@ export default function WorkCard({ project, priority = false }: { project: Proje
 
       <div className="mt-4 flex items-start justify-between gap-4">
         <div>
-          <h3 className="font-display text-xl font-bold leading-tight md:text-2xl">
-            <TransitionLink href={`/work/${p.slug}`} data-cursor="view" className="bg-gradient-to-r from-accent to-accent bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_1px]">
+          <h3 className="font-display text-3xl leading-none md:text-4xl">
+            <TransitionLink href={`/work/${p.slug}`} data-cursor="view" className="bg-gradient-to-r from-accent to-accent bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_2px]">
               {p.title}
             </TransitionLink>
           </h3>

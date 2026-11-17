@@ -65,7 +65,7 @@ export default function Preloader() {
       {phase !== "done" && (
         <motion.div
           id="preloader"
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-ink"
+          className="theme-red fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-ink"
           exit={{ clipPath: "inset(0 0 100% 0)", transition: { duration: 0.9, ease } }}
           style={{ clipPath: "inset(0 0 0% 0)" }}
           aria-live="polite"
@@ -77,37 +77,30 @@ export default function Preloader() {
               <div
                 ref={sweepRef}
                 className="absolute inset-0 rounded-full"
-                style={{ background: "conic-gradient(from 0deg, rgb(237 233 227 / 0.14) var(--sweep, 0deg), transparent var(--sweep, 0deg))" }}
+                style={{ background: "conic-gradient(from 0deg, color-mix(in srgb, var(--fg) 14%, transparent) var(--sweep, 0deg), transparent var(--sweep, 0deg))" }}
               />
               <div className="absolute inset-0 rounded-full border border-bone/40" />
               <div className="absolute inset-[12%] rounded-full border border-bone/25" />
               <div className="absolute inset-y-0 left-1/2 w-px bg-bone/25" />
               <div className="absolute inset-x-0 top-1/2 h-px bg-bone/25" />
-              <span key={count} className="relative font-display text-[clamp(7rem,30vw,15rem)] font-extrabold leading-none text-bone">
+              <span key={count} className="relative font-display text-[clamp(9rem,40vw,20rem)] leading-none text-bone">
                 {Math.max(1, count)}
               </span>
             </div>
           )}
 
           {phase === "name" && (
-            <h2
-              className="flex flex-col items-center font-display text-[13vw] font-extrabold leading-[0.95] tracking-[-0.03em] md:flex-row md:text-[6.8vw]"
-              aria-label={site.name}
-            >
-              {[site.name.slice(0, Math.ceil(site.name.length / 2)), site.name.slice(Math.ceil(site.name.length / 2))].map((part, pi) => (
-                <span key={pi} className="flex overflow-hidden whitespace-nowrap px-[0.05em]" aria-hidden="true">
-                  {part.split("").map((ch, ci) => (
-                    <motion.span
-                      key={ci}
-                      className="inline-block"
-                      initial={{ y: "105%" }}
-                      animate={{ y: "0%" }}
-                      transition={{ duration: 0.7, delay: (pi * part.length + ci) * 0.03, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      {ch}
-                    </motion.span>
-                  ))}
-                  {pi === 1 && <span className="inline-block text-accent">.</span>}
+            <h2 className="flex font-display text-[14.5vw] leading-[0.9]" aria-label={site.name}>
+              {site.name.split("").map((ch, i) => (
+                <span key={i} className="inline-block [clip-path:inset(-40%_-20%_0_-20%)]" aria-hidden="true">
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: "110%" }}
+                    animate={{ y: "0%" }}
+                    transition={{ duration: 0.75, delay: i * 0.035, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {ch}
+                  </motion.span>
                 </span>
               ))}
             </h2>
@@ -115,7 +108,7 @@ export default function Preloader() {
 
           <div className="label-mono absolute inset-x-0 bottom-6 flex items-center justify-between px-5 text-mute md:bottom-10 md:px-10" aria-hidden="true">
             <span className="flex items-center gap-2">
-              <span className="size-2 rounded-full bg-accent animate-rec" /> TC <span ref={tcRef} className="text-bone">00:00:00:00</span>
+              <span className="size-2 rounded-full bg-bone animate-rec" /> TC <span ref={tcRef} className="text-bone">00:00:00:00</span>
             </span>
             <span>
               <span ref={pctRef} className="text-bone">000</span>%

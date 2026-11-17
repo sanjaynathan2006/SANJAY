@@ -11,9 +11,9 @@ import FadeIn from "@/components/ui/FadeIn";
 type Status = "idle" | "sending" | "sent" | "error";
 
 const field =
-  "peer w-full border-0 border-b border-line bg-transparent px-0 pb-3 pt-6 text-lg text-bone placeholder-transparent outline-none transition-colors focus:border-accent";
+  "peer w-full border-0 border-b border-bone/40 bg-transparent px-0 pb-3 pt-6 text-lg text-bone placeholder-transparent outline-none transition-colors focus:border-bone";
 const label =
-  "label-mono pointer-events-none absolute left-0 top-0 text-mute transition-colors peer-focus:text-accent";
+  "label-mono pointer-events-none absolute left-0 top-0 text-bone/70 transition-colors peer-focus:text-bone";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -60,16 +60,12 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden border-t border-line py-28 md:py-40" aria-labelledby="contact-title">
+    <section id="contact" data-theme="red" className="relative overflow-hidden py-28 md:py-40" aria-labelledby="contact-title">
       <div className="container-x">
         <SectionLabel index="07">Contact</SectionLabel>
-        <h2 id="contact-title" aria-label="Let's create something" className="mt-8 font-display text-[clamp(2rem,8.8vw,9.5rem)] font-extrabold uppercase leading-[0.82] tracking-[-0.03em]">
-          <Reveal as="span" text="LET'S" by="char" className="block" />
-          <Reveal as="span" text="CREATE" by="char" delay={0.1} className="block text-outline" />
-          <span className="flex items-end">
-            <Reveal as="span" text="SOMETHING" by="char" delay={0.2} className="block" />
-            <span className="text-accent" aria-hidden="true">.</span>
-          </span>
+        <h2 id="contact-title" aria-label="Let's create something" className="mt-8 font-display text-[clamp(4rem,17vw,18rem)] leading-[0.88]">
+          <Reveal as="span" text="LET'S *create*" by="char" className="block" />
+          <Reveal as="span" text="SOMETHING" by="char" delay={0.15} className="block" />
         </h2>
 
         <div className="mt-16 grid gap-16 md:mt-24 lg:grid-cols-12 lg:gap-10">
@@ -84,11 +80,11 @@ export default function Contact() {
               <Magnetic strength={0.15}>
                 <button
                   onClick={copy}
-                  className="group relative flex items-center gap-4 rounded-full border border-line py-4 pl-6 pr-4 text-left transition-colors hover:border-accent"
+                  className="group relative flex items-center gap-4 rounded-full border border-bone py-4 pl-6 pr-4 text-left transition-colors hover:bg-bone hover:text-ink"
                   aria-label={`Copy email address ${site.email}`}
                 >
-                  <span className="font-display text-lg font-semibold sm:text-2xl">{site.email}</span>
-                  <span className="label-mono rounded-full bg-bone px-3 py-1.5 text-ink transition-colors group-hover:bg-accent">
+                  <span className="text-lg font-semibold sm:text-2xl">{site.email}</span>
+                  <span className="label-mono rounded-full bg-bone px-3 py-1.5 text-ink">
                     {copied ? "Copied ✓" : "Copy"}
                   </span>
                 </button>
@@ -101,11 +97,11 @@ export default function Contact() {
               </span>
             </div>
 
-            <ul className="mt-14 border-t border-line">
+            <ul className="mt-14 border-t border-bone">
               {site.socials.map((s) => (
-                <li key={s.label} className="border-b border-line">
+                <li key={s.label} className="border-b border-bone/30">
                   <a href={s.href} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between py-4">
-                    <span className="font-display text-2xl font-bold transition-transform duration-500 group-hover:translate-x-2">{s.label}</span>
+                    <span className="font-display text-4xl transition-transform duration-500 group-hover:translate-x-2">{s.label}</span>
                     <span className="transition-all duration-500 group-hover:-rotate-45 group-hover:text-accent" aria-hidden="true">
                       →
                     </span>
@@ -154,7 +150,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="group flex items-center gap-3 rounded-full bg-accent px-8 py-4 font-semibold text-ink transition-colors hover:bg-bone disabled:opacity-60"
+                    className="group flex items-center gap-3 rounded-full bg-bone px-8 py-4 font-semibold text-ink transition-transform hover:scale-105 disabled:opacity-60"
                   >
                     <span className="label-mono font-bold">{status === "sending" ? "Sending…" : "Send message"}</span>
                     <span className="transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">→</span>
@@ -168,7 +164,7 @@ export default function Contact() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className={`label-mono ${status === "sent" ? "text-bone" : "text-accent"}`}
+                      className="label-mono text-bone"
                     >
                       {status === "sent" ? "✓ Message received. I'll reply within 24h." : `Something went wrong. Email me at ${site.email}`}
                     </motion.p>

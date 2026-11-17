@@ -53,7 +53,7 @@ export default function Navbar() {
       >
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/50 to-transparent" aria-hidden="true" />
         <nav className="container-x relative flex h-16 items-center justify-between md:h-20" aria-label="Main">
-          <TransitionLink href="/" className="font-display text-lg font-extrabold tracking-tight md:text-xl" aria-label={`${site.name}, home`}>
+          <TransitionLink href="/" className="font-display text-2xl leading-none md:text-[1.75rem]" aria-label={`${site.name}, home`}>
             {site.name}
             <span className="text-accent">.</span>
           </TransitionLink>
@@ -95,7 +95,7 @@ export default function Navbar() {
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 z-[65] flex flex-col justify-between bg-ink px-4 pb-8 pt-24 md:hidden"
+            className="theme-red fixed inset-0 z-[65] flex flex-col justify-between bg-ink px-4 pb-8 pt-24 md:hidden"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
@@ -105,8 +105,8 @@ export default function Navbar() {
               {links.map((l, i) => (
                 <li key={l.href} className="overflow-hidden">
                   <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ delay: 0.25 + i * 0.06, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
-                    <TransitionLink href={l.href} onClick={() => setOpen(false)} className="flex items-baseline gap-4 font-display text-6xl font-extrabold uppercase leading-[1.05]">
-                      <span className="label-mono text-accent">0{i + 1}</span>
+                    <TransitionLink href={l.href} onClick={() => setOpen(false)} className="flex items-baseline gap-4 font-display text-[19vw] leading-[0.92]">
+                      <span className="label-mono">0{i + 1}</span>
                       {l.label}
                     </TransitionLink>
                   </motion.div>

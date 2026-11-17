@@ -1,4 +1,4 @@
-Syne, Inter and JetBrains Mono are licensed under the SIL Open Font License 1.1 (text below).
+Anton, Instrument Serif, Geist and Geist Mono are licensed under the SIL Open Font License 1.1 (text below).
 Files come from the Fontsource npm packages (latin subset, variable weight).
 
 Copyright 2019 The Syne Project Authors (https://gitlab.com/bonjour-monde/fonderie/syne-typeface)

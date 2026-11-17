@@ -15,15 +15,14 @@ export default function Curtain() {
       {curtain === "cover" && (
         <motion.div
           key="curtain"
-          className="fixed inset-0 z-[95] flex items-end justify-between bg-ink-2 p-5 md:p-10"
+          className="theme-red fixed inset-0 z-[95] flex items-end justify-between bg-ink p-5 md:p-10"
           initial={{ clipPath: "inset(100% 0 0 0)" }}
           animate={{ clipPath: "inset(0% 0 0 0)", transition: { duration: 0.6, ease } }}
           exit={{ clipPath: "inset(0 0 100% 0)", transition: { duration: 0.75, ease, delay: 0.1 } }}
           aria-hidden="true"
         >
-          <span className="absolute inset-x-0 top-0 h-0.5 bg-accent" />
-          <span className="font-display text-2xl font-extrabold">{site.name}</span>
-          <Timecode className="text-sm text-mute" />
+          <span className="font-display text-[18vw] leading-[0.8] md:text-[12vw]">{site.name}</span>
+          <Timecode className="text-sm text-bone" />
         </motion.div>
       )}
     </AnimatePresence>

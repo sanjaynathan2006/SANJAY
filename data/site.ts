@@ -11,8 +11,8 @@ export const site = {
   /** Main wordmark. Always shown in UPPERCASE. */
   name: "SANJAYNATHAN",
   role: "Video Editor & Motion Designer",
-  /** PLACEHOLDER tagline */
-  tagline: "Cutting stories frame by frame.",
+  /** PLACEHOLDER tagline. Wrap words in *asterisks* for the italic serif accent. */
+  tagline: "Cutting stories *frame by frame.*",
 
   /** Your live domain (used for SEO / Open Graph / sitemap). */
   url: "https://sanjaynathan.com",
@@ -61,8 +61,9 @@ export const site = {
 
   /** About section. PLACEHOLDER bio paragraphs. */
   about: {
+    /** Wrap words in *asterisks* to render them in the italic serif accent. */
     statement:
-      "I shape raw footage into stories people actually finish watching: rhythm, emotion and every frame earning its place.",
+      "I shape *raw footage* into stories people actually *finish watching*: rhythm, emotion and every frame *earning its place.*",
     bio: [
       "I'm a video editor and motion designer obsessed with pacing, sound and the invisible cut. From punchy 30-second reels to long-form YouTube and cinematic travel films, I build edits that hold attention and feel effortless.",
       "My toolkit lives across Premiere Pro, After Effects and DaVinci Resolve: cutting, animating and grading until the story clicks. Replace this text in data/site.ts.",

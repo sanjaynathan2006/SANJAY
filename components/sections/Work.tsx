@@ -28,16 +28,15 @@ export default function Work() {
   const graded = projects.find((p) => p.beforeAfter);
 
   return (
-    <section id="work" className="relative border-t border-line py-28 md:py-36" aria-labelledby="work-title">
+    <section id="work" data-theme="ink" className="relative py-28 md:py-40" aria-labelledby="work-title">
       <div className="container-x">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <SectionLabel index="04">Portfolio</SectionLabel>
-            <h2 id="work-title" aria-label="Selected work" className="mt-6 font-display text-[clamp(2.1rem,9vw,8.5rem)] font-extrabold leading-[0.85] tracking-tight">
-              <Reveal as="span" text="SELECTED" by="char" className="block" />
-              <span className="flex items-start gap-4">
-                <Reveal as="span" text="WORK" by="char" delay={0.2} className="block" />
-                <sup className="label-mono mt-[0.4em] text-accent">({String(projects.length).padStart(2, "0")})</sup>
+            <h2 id="work-title" aria-label="Selected work" className="mt-6 font-display text-[clamp(4rem,14vw,14rem)] leading-[0.82]">
+              <span className="flex items-start gap-3">
+                <Reveal as="span" text="SELECTED *work*" by="char" className="block" />
+                <sup className="label-mono mt-[0.5em] text-accent">({String(projects.length).padStart(2, "0")})</sup>
               </span>
             </h2>
           </div>
@@ -55,12 +54,12 @@ export default function Work() {
                   onClick={() => setFilter(f)}
                   aria-pressed={active}
                   className={`label-mono relative rounded-full border px-4 py-2.5 transition-colors duration-300 ${
-                    active ? "border-accent text-ink" : "border-line text-bone/70 hover:border-bone/50 hover:text-bone"
+                    active ? "border-accent text-on-accent" : "border-line text-bone/70 hover:border-bone/50 hover:text-bone"
                   }`}
                 >
                   {active && <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-accent" transition={{ type: "spring", stiffness: 400, damping: 35 }} />}
                   <span className="relative">
-                    {f} <span className={active ? "text-ink/80" : "text-mute"}>{counts[f]}</span>
+                    {f} <span className={active ? "text-on-accent/80" : "text-mute"}>{counts[f]}</span>
                   </span>
                 </button>
               );
@@ -91,7 +90,7 @@ export default function Work() {
           <div className="mt-16 grid items-center gap-10 border-t border-line pt-16 md:mt-24 md:grid-cols-12 md:pt-24">
             <FadeIn className="md:col-span-4">
               <p className="label-mono text-accent">Color grading · Before / After</p>
-              <h3 className="mt-4 font-display text-4xl font-extrabold leading-[0.95] tracking-tight md:text-6xl">DRAG TO COMPARE</h3>
+              <h3 className="mt-4 font-display text-[clamp(3rem,6vw,6rem)] leading-[0.88]">DRAG TO <em className="accent-serif text-accent">compare</em></h3>
               <p className="mt-5 text-bone/70">Flat LOG footage on the left, the final grade on the right. Drag the handle (or use the arrow keys) to see the difference.</p>
               <TransitionLink href={`/work/${graded.slug}`} data-cursor="view" className="label-mono mt-8 inline-flex items-center gap-2 border-b border-accent pb-1 text-bone hover:text-accent">
                 {graded.title} →
